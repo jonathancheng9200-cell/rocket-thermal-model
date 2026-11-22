@@ -1,4 +1,4 @@
-
+import config
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
@@ -56,29 +56,30 @@ if __name__ == "__main__":
         data["r"]
     )
 
-    # Coolant properties
-    T_c_in = 300.0
-    m_dot_c = 2.0
-    c_p = 3000.0
+    # Baseline simulation parameters from config.py
 
-    # Effective heated perimeter
-    P_h = 0.10
+    T_c_in = config.T_C_IN
+    m_dot_c = config.M_DOT_C
+    c_p = config.C_P_C
 
-    # Wall and heat-transfer properties
-    h_c = 15000.0
-    L_w = 0.003
-    k_w = 350.0
-    epsilon_eff = 0.20
+    h_c = config.H_C
+    L_w = config.L_W
+    k_w = config.K_W
+    epsilon_eff = config.EPSILON_EFF
+
+    
+    # Simplified heat-transfer geometry
+    P_h = config.P_H
 
     # Cooling channel geometry
-    n_channels = 50
-    width = 0.005
-    height = 0.002
+    n_channels = config.N_CHANNELS
+    width = config.CHANNEL_WIDTH
+    height = config.CHANNEL_HEIGHT
 
     # Coolant hydraulic properties
-    P_in = 5.0e6
-    rho_c = 1000.0
-    f_D = 0.020
+    P_in = config.P_IN
+    rho_c = config.RHO_C
+    f_D = config.F_D
 
     A_total, D_h, V_c = rectangular_channel_geometry(
         n_channels,
@@ -451,7 +452,7 @@ if __name__ == "__main__":
     )
 
     validation = generate_validation_report(convergence)
-    
+
     # Radiation diagnostics
     negative_radiation_points = np.count_nonzero(q_rad < 0)
 

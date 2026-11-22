@@ -390,6 +390,35 @@ python -m pytest -v
 
 Generated figures are saved in the `results/` directory.
 
+### Customizing Simulation Parameters
+
+The simulation includes a centralized `config.py` file that allows users to modify baseline thermal and coolant parameters without changing the underlying numerical algorithms.
+
+Configurable parameters include:
+
+- **Coolant properties:** Inlet temperature, mass flow rate, and specific heat.
+- **Heat-transfer parameters:** Coolant-side heat-transfer coefficient, wall thickness, wall thermal conductivity, and effective emissivity.
+- **Cooling-channel geometry:** Number of channels, channel width, and channel height.
+- **Hydraulic properties:** Coolant inlet pressure, density, and Darcy friction factor.
+- **Design constraints:** Illustrative maximum wall and coolant temperatures.
+
+For example, users can modify the coolant mass flow rate and wall thermal conductivity in `config.py`:
+
+```python
+M_DOT_C = 4.0     # Coolant mass flow rate [kg/s]
+K_W = 500.0       # Wall thermal conductivity [W/(m K)]
+```
+
+After saving the configuration, rerun:
+
+```bash
+python integrated_thermal.py
+```
+
+The simulation will use the updated parameters to calculate the corresponding thermal performance.
+
+**Note:** Nozzle geometry and gas-side flow parameters remain defined in the Project 1 nozzle simulator. The effective heated perimeter applies to the simplified constant-perimeter model, while the integrated geometry-based model calculates wall surface areas from the nozzle geometry. The coolant-side heat-transfer coefficient is prescribed independently of cooling-channel geometry.
+
 ## 10. Assumptions and Limitations
 
 The simulation is intended as an educational engineering model and preliminary thermal-analysis framework.
